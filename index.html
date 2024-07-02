@@ -1,96 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="/_vercel/insights/script.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
-    />
-    <title>Vercel HTML Starter</title>
-    <meta
-      name="description"
-      content="High-performance HTML based website template."
-    />
-  </head>
-  <body>
-    <h1>Vercel HTML Starter</h1>
-    <p>
-      This template is a simple, but powerful single
-      <code>index.html</code> file deployed to
-      <a href="https://vercel.com">Vercel</a>. When your site is deployed, all
-      static assets (like HTML, JavaScript, CSS, images, and more) are deployed
-      globally to every
-      <a href="https://vercel.com/docs/concepts/edge-network/overview"
-        >Vercel Edge Network</a
-      >
-      region.
-    </p>
-    <h2>Simple, privacy-friendly analytics</h2>
-    <p>
-      Want to understand your visitor traffic? Vercel Analytics gives you
-      first-party, privacy-friendly traffic analytics for your HTML site. This
-      template is already configured using the following script:
-    </p>
-    <pre><code>&lt;script defer src="/_vercel/insights/script.js"&gt;&lt;/script&gt;</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/analytics">Vercel Analytics</a>.
-    </p>
-    <h2>Integrated with git</h2>
-    <p>
-      Deploying updates to your site is as simple as
-      <code>git push</code> thanks to Vercel's advanced
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-      Support for GitHub, GitLab, Bitbucket is zero-configuration, and with the
-      flexible Vercel CLI and API, you can integrate with any tool possible.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-    </p>
-    <h2>Fast <code>gzip</code> compression</h2>
-    <p>
-      To help ensure the smallest possible file sizes for your static assets,
-      the Vercel Edge Network compresses files by default using
-      <code>gzip</code>. You can also optionally use
-      <code>brotli</code> compressesion if you prefer.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/edge-network/compression"
-        >compression</a
-      >.
-    </p>
-    <h2>Advanced routing configuration</h2>
-    <p>
-      Vercel gives you a variety of ways to configure the routing of your
-      website. For example, adding redirects, rewrites, or headers to your page.
-      While you can use <code>vercel.json</code> to define these through JSON,
-      you can also express your routing configuration as code using
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-    <p>
-      Middleware runs before the
-      <a href="https://vercel.com/docs/concepts/edge-network/caching"
-        >Vercel Edge Network Cache</a
-      >, so you can configure routing exactly as your application needs. For
-      example, this template uses <code>middleware.js</code> defined in the root
-      of the repository to add additional security headers to the site:
-    </p>
-    <pre><code>referrer-policy: origin-when-cross-origin
-strict-transport-security: max-age=31536000; includeSubDomains; preload
-x-content-type-options: nosniff
-x-dns-prefetch-control: on
-x-frame-options: DENY</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-  </body>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de QR | LG</title>
+    <!-- Incluir Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #2d2d2d; /* Cambiar aquí al color de fondo oscuro deseado */
+            color: #fff; /* Cambiar el color del texto si es necesario para mejor legibilidad */
+        }
+        #qrcode {
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #1f1f1f;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            background-color: #1f1f1f; /* Cambiar aquí al color de fondo para el input */
+            color: #fff; /* Cambiar el color del texto dentro del input */
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1 class="mt-5">Generador de QR - LG</h1>
+        <div class="form-group mt-4">
+            <input type="text" id="urlInput" class="form-control" placeholder="Ingresa una URL">
+        </div>
+        <div id="qrcode" class="mt-4"></div>
+        <div class="btn-group mt-2">
+            <button class="btn btn-primary mr-2" onclick="generateQR()">Generar QR</button>
+            <button class="btn btn-secondary mr-2" onclick="clearInput()">Limpiar</button>
+            <button class="btn btn-success" onclick="downloadQR()">Descargar QR</button>
+        </div>
+    </div>
+
+    <!-- Incluye la biblioteca qrcode.js -->
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script>
+        function generateQR() {
+            var url = document.getElementById("urlInput").value;
+            var qrCodeContainer = document.getElementById("qrcode");
+            qrCodeContainer.style.backgroundColor = "white";
+            qrCodeContainer.innerHTML = "";
+            new QRCode(qrCodeContainer, {
+                text: url,
+                width: 256,
+                height: 256
+            });
+        }
+
+        function clearInput() {
+            document.getElementById("urlInput").value = "";
+            document.getElementById("qrcode").innerHTML = "";
+        }
+
+        function downloadQR() {
+            var qrCodeImg = document.getElementById("qrcode").getElementsByTagName("img")[0];
+            if (qrCodeImg) {
+                var size = qrCodeImg.naturalWidth;
+                var canvas = document.createElement("canvas");
+                var context = canvas.getContext("2d");
+
+                var borderSize = 20;
+
+                canvas.width = size + borderSize * 2;
+                canvas.height = size + borderSize * 2;
+
+                // Dibujar el fondo blanco
+                context.fillStyle = "white";
+                context.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Dibujar el QR en el centro del canvas con borde blanco
+                context.drawImage(qrCodeImg, borderSize, borderSize, size, size);
+
+                // Crear un enlace para descargar la imagen
+                var link = document.createElement('a');
+                link.download = 'qrcode.png';
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            } else {
+                alert("Primero genere el código QR.");
+            }
+        }
+    </script>
+</body>
 </html>
